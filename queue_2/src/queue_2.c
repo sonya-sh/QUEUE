@@ -277,7 +277,6 @@ struct Result* popResultQueue(struct ResultQueue *rq) {
 struct Result* processTask(struct Task *t) {
 	struct Result *r = (struct Result*) malloc(sizeof(struct Result));
 // Операция скалярная
-	float s;
 	if (t->isScalar) {
 		r->isScalar = 1;
 		switch (t->op) {
@@ -294,11 +293,7 @@ struct Result* processTask(struct Task *t) {
 			r->res = t->x / t->y;
 			break;
 		case power:
-			s = 1;
-			for (int i; i <= (t->y); i++) {
-				s *= (t->x);
-			}
-			r->res = s;
+			r->res = pow(t->x, t->y);
 			break;
 		case factorial:
 			r->res = calcFactorial(t->x);
@@ -364,4 +359,3 @@ void printResultQueue(struct ResultQueue *rq, FILE *out) {
 		freeResult(r);
 	}
 }
-
